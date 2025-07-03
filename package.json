@@ -1,0 +1,11 @@
+{
+  "name": "hackathon-2025",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:jbsainte/hackathon-2025.git",
+  "author": "Julien Cornu <jcornu-ext@lefigaro.fr>",
+  "license": "MIT",
+  "scripts": {
+    "analyze": "node analyze.js"
+  }
+}

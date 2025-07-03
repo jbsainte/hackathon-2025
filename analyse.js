@@ -1,12 +1,10 @@
-// analyze.js
 const fs = require("fs");
-const path = require("path");
 const { OpenAI } = require("openai");
 require("dotenv").config();
 
 const filePath = process.argv[2];
 if (!filePath) {
-  console.error("🚨 Veuillez fournir un chemin de fichier JS/TS à analyser.");
+  console.error("❌ Fournis un fichier à analyser (ex: ./src/example.jsx)");
   process.exit(1);
 }
 
@@ -17,7 +15,7 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-async function runAnalysis() {
+async function run() {
   const prompt = `
 Tu es un reviewer IA pour une équipe JS/React.
 
@@ -30,19 +28,21 @@ Voici un fichier à analyser :
 ${code}
 \`\`\`
 
-Donne un retour critique : qu’est-ce qui est bien, qu’est-ce qui est à améliorer ? 
-Propose des modifications si nécessaire.
+Fais un retour critique :
+- ✅ Ce qui est bien
+- ⚠️ Ce qui est à revoir
+- 💡 Suggestions d’amélioration
 `;
 
-  const chatCompletion = await openai.chat.completions.create({
-    messages: [{ role: "user", content: prompt }],
+  const res = await openai.chat.completions.create({
     model: "gpt-4",
+    messages: [{ role: "user", content: prompt }],
   });
 
-  console.log("\n🧠 Feedback IA :\n");
-  console.log(chatCompletion.choices[0].message.content);
+  console.log("\n🧠 Résultat de l'analyse IA :\n");
+  console.log(res.choices[0].message.content);
 }
 
-runAnalysis().catch((err) => {
-  console.error("Erreur durant l’analyse :", err.message);
+run().catch((err) => {
+  console.error("❌ Erreur d’analyse :", err.message);
 });
