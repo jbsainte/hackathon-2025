@@ -14,7 +14,7 @@
   "contributes": {
     "commands": [
       {
-        "command": "awesome-dev.helloWorld",
+        "command": "awesome-dev.Dave",
         "title": "Hello World"
       }
     ]
@@ -25,6 +25,7 @@
     "watch": "tsc -watch -p ./",
     "pretest": "npm run compile && npm run lint",
     "lint": "eslint src",
+    "build": "mkdir -p build && vsce package --out build/",
     "test": "vscode-test"
   },
   "devDependencies": {
