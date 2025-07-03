@@ -1,0 +1,14 @@
+# Best Practices Frontend de l'équipe X
+
+1. Tous les appels API doivent passer par `apiClient`.
+2. Pas de logique métier dans les composants React.
+3. Les effets secondaires sont dans `useEffect` ou des hooks custom.
+4. Le nommage doit suivre le pattern `useX`, `ComponentX`, `XService`.
+
+Exemple bon :
+```tsx
+// useUserData.ts
+export function useUserData() {
+  const { data } = useQuery("user", fetchUser);
+  return data;
+}
